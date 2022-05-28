@@ -1,6 +1,6 @@
 {
   "author": "Ben Gourley",
-  "name": "@clocklimited/cf-form-cancel-delegate",
+  "name": "@jackfish/form-cancel-delegate",
   "description": "Show a confirmation dialog if model changes will be lost when navigating from a form",
   "version": "3.0.1",
   "tags": [],
@@ -9,7 +9,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:clocklimited/cf-form-cancel-delegate"
+    "url": "git@github.com:JackfishCMS/form-cancel-delegate"
   },
   "main": "form-cancel-delegate.js",
   "scripts": {
