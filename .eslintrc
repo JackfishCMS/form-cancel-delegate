@@ -1,9 +1,9 @@
 {
-  "extends": [ "eslint:recommended", "plugin:prettier/recommended" ],
-  "plugins": [ "prettier" ],
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+  "plugins": ["prettier"],
   "rules": {
-    "object-curly-spacing": [ "error", "always" ],
-    "array-bracket-spacing": [ "error", "always" ]
+    "object-curly-spacing": ["error", "always"],
+    "array-bracket-spacing": ["error", "always"]
   },
   "env": {
     "es6": true,
@@ -11,6 +11,5 @@
     "jest": true,
     "jquery": true
   },
-  "globals": {
-  }
+  "globals": {}
 }

@@ -5,10 +5,11 @@ const assert = require('assert')
 const BaseModel = require('cf-base-model')
 const schemata = require('schemata')
 
-const namedSchemata = properties => schemata({
-  name: 'Test',
-  properties
-})
+const namedSchemata = (properties) =>
+  schemata({
+    name: 'Test',
+    properties
+  })
 
 const noop = () => noop
 
@@ -17,54 +18,50 @@ describe('Form cancel delegate', () => {
     $('body').empty()
   })
 
-  test(
-    'should error if the model does not have an initialModel property',
-    () => {
-      assert.throws(() => {
-        createFormCancelDelegate(noop, true)()
-      })
-    }
-  )
+  test('should error if the model does not have an initialModel property', () => {
+    assert.throws(() => {
+      createFormCancelDelegate(noop, true)()
+    })
+  })
 
-  test(
-    'should trigger a cancel event on the view if the model has not changed',
-    done => {
-      const cancelDelegate = createFormCancelDelegate(noop, true)
+  test('should trigger a cancel event on the view if the model has not changed', (done) => {
+    const cancelDelegate = createFormCancelDelegate(noop, true)
 
-      const Model = BaseModel.extend({
-        schemata: namedSchemata({
-          a: {
-            type: Number
-          }
-        })
-      })
-
-      const model = new Model({
-        a: 10
-      })
-
-      const $el = $(
-        [ '<div>',
-          '  <form>',
-          '    <input name="a" value="10"/>',
-          '  </form>',
-          '</div>'
-        ].join(''))
-
-      const View = window.Backbone.View.extend({
-        initialize () {
-          this.initialModel = this.model.toJSON()
+    const Model = BaseModel.extend({
+      schemata: namedSchemata({
+        a: {
+          type: Number
         }
       })
-      const view = new View({ model, el: $el[0] })
+    })
 
-      view.on('cancel', () => {
-        done()
-      })
+    const model = new Model({
+      a: 10
+    })
 
-      cancelDelegate.call(view)
-    }
-  )
+    const $el = $(
+      [
+        '<div>',
+        '  <form>',
+        '    <input name="a" value="10"/>',
+        '  </form>',
+        '</div>'
+      ].join('')
+    )
+
+    const View = window.Backbone.View.extend({
+      initialize() {
+        this.initialModel = this.model.toJSON()
+      }
+    })
+    const view = new View({ model, el: $el[0] })
+
+    view.on('cancel', () => {
+      done()
+    })
+
+    cancelDelegate.call(view)
+  })
 
   test('should show a modal if the model has changed', () => {
     const cancelDelegate = createFormCancelDelegate(noop, true)
@@ -82,15 +79,17 @@ describe('Form cancel delegate', () => {
     })
 
     const $el = $(
-      [ '<div>',
+      [
+        '<div>',
         '  <form>',
         '    <input name="a" value="20"/>',
         '  </form>',
         '</div>'
-      ].join(''))
+      ].join('')
+    )
 
     const view = new (window.Backbone.View.extend({
-      initialize () {
+      initialize() {
         this.initialModel = this.model.toJSON()
       }
     }))({
@@ -102,7 +101,7 @@ describe('Form cancel delegate', () => {
     assert($('.modal-overlay').length)
   })
 
-  test('should call the toJSON() method if it exists on the model', done => {
+  test('should call the toJSON() method if it exists on the model', (done) => {
     let isToJsonCalled = false
     const cancelDelegate = createFormCancelDelegate(noop, true)
 
@@ -117,19 +116,22 @@ describe('Form cancel delegate', () => {
     const model = new Model({ a: 10 })
 
     const $el = $(
-      [ '<div>',
+      [
+        '<div>',
         '  <form>',
         '    <input name="a" value="10"/>',
         '  </form>',
         '</div>'
-      ].join(''))
+      ].join('')
+    )
 
     const view = new (window.Backbone.View.extend({
-      initialize () {
+      initialize() {
         this.initialModel = this.model.toJSON()
       }
     }))({
-      model: model, el: $el[0]
+      model: model,
+      el: $el[0]
     })
     model.toJSON = function () {
       isToJsonCalled = true
@@ -144,7 +146,7 @@ describe('Form cancel delegate', () => {
     cancelDelegate.call(view)
   })
 
-  test('should discard changes if discard button is pressed', done => {
+  test('should discard changes if discard button is pressed', (done) => {
     const cancelDelegate = createFormCancelDelegate(noop, true)
 
     const Model = BaseModel.extend({
@@ -160,15 +162,17 @@ describe('Form cancel delegate', () => {
     })
 
     const $el = $(
-      [ '<div>',
+      [
+        '<div>',
         '  <form>',
         '    <input name="a" value="20"/>',
         '  </form>',
         '</div>'
-      ].join(''))
+      ].join('')
+    )
 
     const view = new (window.Backbone.View.extend({
-      initialize () {
+      initialize() {
         this.initialModel = this.model.toJSON()
       }
     }))({
@@ -185,51 +189,50 @@ describe('Form cancel delegate', () => {
     $('.js-button').eq(1).trigger('click')
   })
 
-  test(
-    'should not emit the cancel event if continue editing button is pressed',
-    done => {
-      const cancelDelegate = createFormCancelDelegate(noop, true)
+  test('should not emit the cancel event if continue editing button is pressed', (done) => {
+    const cancelDelegate = createFormCancelDelegate(noop, true)
 
-      const Model = BaseModel.extend({
-        schemata: namedSchemata({
-          a: {
-            type: Number
-          }
-        })
-      })
-
-      const model = new Model({
-        a: 10
-      })
-
-      const $el = $(
-        [ '<div>',
-          '  <form>',
-          '    <input name="a" value="20"/>',
-          '  </form>',
-          '</div>'
-        ].join(''))
-
-      const view = new (window.Backbone.View.extend({
-        initialize () {
-          this.initialModel = this.model.toJSON()
+    const Model = BaseModel.extend({
+      schemata: namedSchemata({
+        a: {
+          type: Number
         }
-      }))({
-        model,
-        el: $el[0]
       })
+    })
 
-      cancelDelegate.call(view)
-      view.on('cancel', () => {
-        assert(false)
-      })
+    const model = new Model({
+      a: 10
+    })
 
-      $('.js-button').eq(0).trigger('click')
+    const $el = $(
+      [
+        '<div>',
+        '  <form>',
+        '    <input name="a" value="20"/>',
+        '  </form>',
+        '</div>'
+      ].join('')
+    )
 
-      // Allow 20ms for view to have cancel event triggered
-      setTimeout(done, 20)
-    }
-  )
+    const view = new (window.Backbone.View.extend({
+      initialize() {
+        this.initialModel = this.model.toJSON()
+      }
+    }))({
+      model,
+      el: $el[0]
+    })
+
+    cancelDelegate.call(view)
+    view.on('cancel', () => {
+      assert(false)
+    })
+
+    $('.js-button').eq(0).trigger('click')
+
+    // Allow 20ms for view to have cancel event triggered
+    setTimeout(done, 20)
+  })
 
   test('should detect changes on nested models', () => {
     const cancelDelegate = createFormCancelDelegate(noop, true)
@@ -250,15 +253,17 @@ describe('Form cancel delegate', () => {
     })
 
     const $el = $(
-      [ '<div>',
+      [
+        '<div>',
         '  <form>',
         '    <input name="a" value="20"/>',
         '  </form>',
         '</div>'
-      ].join(''))
+      ].join('')
+    )
 
     const view = new (window.Backbone.View.extend({
-      initialize () {
+      initialize() {
         this.initialModel = this.model.toJSON()
       }
     }))({
@@ -272,133 +277,130 @@ describe('Form cancel delegate', () => {
     assert($('.modal-overlay').length)
   })
 
-  test(
-    'should call a callback if passed and discard is clicked',
-    done => {
-      const cancelDelegate = createFormCancelDelegate(noop, true)
+  test('should call a callback if passed and discard is clicked', (done) => {
+    const cancelDelegate = createFormCancelDelegate(noop, true)
 
-      const Model = BaseModel.extend({
-        schemata: namedSchemata({
-          a: {
-            type: Number
-          }
-        })
-      })
-
-      const model = new Model({
-        a: 10
-      })
-
-      const $el = $(
-        [ '<div>',
-          '  <form>',
-          '    <input name="a" value="20"/>',
-          '  </form>',
-          '</div>'
-        ].join(''))
-
-      const view = new (window.Backbone.View.extend({
-        initialize () {
-          this.initialModel = this.model.toJSON()
+    const Model = BaseModel.extend({
+      schemata: namedSchemata({
+        a: {
+          type: Number
         }
-      }))({
-        model,
-        el: $el[0]
       })
+    })
 
-      cancelDelegate.call(view, (err, discard) => {
-        if (err) return done(err)
-        assert(discard)
-        done()
-      })
+    const model = new Model({
+      a: 10
+    })
 
-      $('.js-button').eq(1).trigger('click')
-    }
-  )
+    const $el = $(
+      [
+        '<div>',
+        '  <form>',
+        '    <input name="a" value="20"/>',
+        '  </form>',
+        '</div>'
+      ].join('')
+    )
 
-  test(
-    'should call a callback if passed and continue is clicked',
-    done => {
-      const cancelDelegate = createFormCancelDelegate(noop, true)
+    const view = new (window.Backbone.View.extend({
+      initialize() {
+        this.initialModel = this.model.toJSON()
+      }
+    }))({
+      model,
+      el: $el[0]
+    })
 
-      const Model = BaseModel.extend({
-        schemata: namedSchemata({
-          a: {
-            type: Number
-          }
-        })
-      })
+    cancelDelegate.call(view, (err, discard) => {
+      if (err) return done(err)
+      assert(discard)
+      done()
+    })
 
-      const model = new Model({
-        a: 10
-      })
+    $('.js-button').eq(1).trigger('click')
+  })
 
-      const $el = $(
-        [ '<div>',
-          '  <form>',
-          '    <input name="a" value="20"/>',
-          '  </form>',
-          '</div>'
-        ].join(''))
+  test('should call a callback if passed and continue is clicked', (done) => {
+    const cancelDelegate = createFormCancelDelegate(noop, true)
 
-      const view = new (window.Backbone.View.extend({
-        initialize () {
-          this.initialModel = this.model.toJSON()
+    const Model = BaseModel.extend({
+      schemata: namedSchemata({
+        a: {
+          type: Number
         }
-      }))({
-        model,
-        el: $el[0]
       })
+    })
 
-      cancelDelegate.call(view, (err, discard) => {
-        if (err) return done(err)
-        assert(!discard)
-        done()
-      })
+    const model = new Model({
+      a: 10
+    })
 
-      $('.js-button').eq(0).trigger('click')
-    }
-  )
+    const $el = $(
+      [
+        '<div>',
+        '  <form>',
+        '    <input name="a" value="20"/>',
+        '  </form>',
+        '</div>'
+      ].join('')
+    )
 
-  test(
-    'should  call a callback if passed and the model has not changed',
-    done => {
-      const cancelDelegate = createFormCancelDelegate(noop, true)
+    const view = new (window.Backbone.View.extend({
+      initialize() {
+        this.initialModel = this.model.toJSON()
+      }
+    }))({
+      model,
+      el: $el[0]
+    })
 
-      const Model = BaseModel.extend({
-        schemata: namedSchemata({
-          a: {
-            type: Number
-          }
-        })
-      })
+    cancelDelegate.call(view, (err, discard) => {
+      if (err) return done(err)
+      assert(!discard)
+      done()
+    })
 
-      const model = new Model({
-        a: 10
-      })
+    $('.js-button').eq(0).trigger('click')
+  })
 
-      const $el = $(
-        [ '<div>',
-          '  <form>',
-          '    <input name="a" value="10"/>',
-          '  </form>',
-          '</div>'
-        ].join(''))
+  test('should  call a callback if passed and the model has not changed', (done) => {
+    const cancelDelegate = createFormCancelDelegate(noop, true)
 
-      const view = new (window.Backbone.View.extend({
-        initialize () {
-          this.initialModel = this.model.toJSON()
+    const Model = BaseModel.extend({
+      schemata: namedSchemata({
+        a: {
+          type: Number
         }
-      }))({
-        model,
-        el: $el[0]
       })
+    })
 
-      cancelDelegate.call(view, (err, discard) => {
-        if (err) return done()
-        assert(discard)
-        done()
-      })
-    }
-  )
+    const model = new Model({
+      a: 10
+    })
+
+    const $el = $(
+      [
+        '<div>',
+        '  <form>',
+        '    <input name="a" value="10"/>',
+        '  </form>',
+        '</div>'
+      ].join('')
+    )
+
+    const view = new (window.Backbone.View.extend({
+      initialize() {
+        this.initialModel = this.model.toJSON()
+      }
+    }))({
+      model,
+      el: $el[0]
+    })
+
+    cancelDelegate.call(view, (err, discard) => {
+      if (err) return done()
+      assert(discard)
+      done()
+    })
+  })
 })

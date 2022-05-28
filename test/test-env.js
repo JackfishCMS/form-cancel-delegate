@@ -4,7 +4,11 @@ const dom = new JSDOM('<!DOCTYPE html><p>Hello world</p>')
 
 global.window = dom.window
 
-global.window.$ = window.jQuery = global.jQuery = global.$ = require('./jquery-3.2.1.min.js')
+global.window.$ =
+  window.jQuery =
+  global.jQuery =
+  global.$ =
+    require('./jquery-3.2.1.min.js')
 global.document = window.document
 global.window._ = global._ = require('lodash')
 global.document = global.window.document
