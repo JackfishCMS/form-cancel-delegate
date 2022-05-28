@@ -2,7 +2,7 @@
   "author": "Ben Gourley",
   "name": "@jackfish/form-cancel-delegate",
   "description": "Show a confirmation dialog if model changes will be lost when navigating from a form",
-  "version": "3.0.1",
+  "version": "4.0.0",
   "tags": [],
   "files": [
     "form-cancel-delegate.js"
