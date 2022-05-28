@@ -1,21 +1,21 @@
-# cf-form-cancel-delegate
+# @jackfish/form-cancel-delegate
 
 Show a confirmation dialog if model changes will be lost when navigating from a form
 
 ## WARNING
 
-From 3.0.0 your project will require at least `schemata@6`
+From 3.0.0 your project will require at least `schemata@6` and support for a pug@3 runtime.
 
 ## Installation
 
-    npm install --save cf-form-cancel-delegate
+    npm install --save @jackfish/form-cancel-delegate
 
 ## Usage
 
 On a Backbone view that has an `initialModel` property:
 
 ```js
-var formCancelDelegate = require('cf-form-cancel-delegate')(logger)
+var formCancelDelegate = require('@jackfish/form-cancel-delegate')(logger)
 formCancelDelegate.call(view) // Needs to be executed in the context of the view
 ```
 
