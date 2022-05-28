@@ -16,6 +16,6 @@ global.window.Backbone = global.Backbone = require('backbone')
 global.window.Backbone.$ = global.window.jQuery
 global.window.Backbone._ = global.window._
 global.navigator = { userAgent: 'node.js' }
-global.window.jade = require('jade/runtime')
+global.window.pug = require('pug-runtime')
 global.addEventListener = window.addEventListener
 global.addEventListener = global.window.addEventListener
