@@ -9,7 +9,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:JackfishCMS/form-cancel-delegate"
+    "url": "git@github.com:JackfishCMS/form-cancel-delegate.git"
   },
   "main": "form-cancel-delegate.js",
   "scripts": {
