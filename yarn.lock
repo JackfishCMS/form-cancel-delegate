@@ -70,6 +70,11 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
+"@jackfish/map-form-to-object@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@jackfish/map-form-to-object/-/map-form-to-object-2.0.0.tgz#352d6d7b5944c3bac16cd71dc4f51b62624f7738"
+  integrity sha512-UAze3xR0dTfn/oLE3EcOymxEvMzEIX838Olwdst9Rtg6ZOVabBw9Dfx4v0VrEw0nygh1KRQV61NrVMRws+4C4A==
+
 "@jackfish/modal@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@jackfish/modal/-/modal-2.0.0.tgz#5a58b82ee815a43fba6b0b763e5d5f072ab4f390"
@@ -620,13 +625,6 @@ cf-base-model@0.0.1:
   integrity sha1-YESOcgoAzm3hcWOKPXj6WJ8cPZM=
   dependencies:
     lodash.clonedeep "~2.3.0"
-
-cf-map-form-to-object@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/cf-map-form-to-object/-/cf-map-form-to-object-1.0.0.tgz#2ceb3e1a045b01feb7dac14f152c720e4629e8a0"
-  integrity sha1-LOs+GgRbAf632sFPFSxyDkYp6KA=
-  dependencies:
-    schemata "^6.0.0"
 
 chalk@^1.1.3:
   version "1.1.3"
