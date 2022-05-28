@@ -1,5 +1,6 @@
 {
-  "extends": [ "standard" ],
+  "extends": [ "eslint:recommended", "plugin:prettier/recommended" ],
+  "plugins": [ "prettier" ],
   "rules": {
     "object-curly-spacing": [ "error", "always" ],
     "array-bracket-spacing": [ "error", "always" ]
